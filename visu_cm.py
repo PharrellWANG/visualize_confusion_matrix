@@ -10,7 +10,7 @@ def visu_confusion_matrix(file_name, folder_to_save_svg):
     df_cm = pd.DataFrame(df.values, index=list(range(0, 37)),
                          columns=list(range(0, 37)))
     plt.figure(figsize=(10, 8))
-    sns.heatmap(df_cm, annot=True, cmap=sns.color_palette("Greens"))
+    sns.heatmap(df_cm, annot=False, cmap=sns.color_palette("Greens"))
 
     svg_basename = os.path.basename(file_name)
     svg_basename_new = os.path.splitext(svg_basename)[0] + '.svg'
