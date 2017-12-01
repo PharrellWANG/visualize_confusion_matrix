@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import os
 
 
-def visu_confusion_matrix(file_name, folder_to_save_svg):
+def visu_confusion_matrix(file_name, folder, target_format):
 
     df = pd.read_csv(file_name, sep=',', header=None)
     df_cm = pd.DataFrame(df.values, index=list(range(0, 37)),
@@ -13,10 +13,10 @@ def visu_confusion_matrix(file_name, folder_to_save_svg):
     sns.heatmap(df_cm, annot=False, cmap=sns.color_palette("Greens"))
 
     svg_basename = os.path.basename(file_name)
-    svg_basename_new = os.path.splitext(svg_basename)[0] + '.svg'
-    svg_full_path = os.path.join(folder_to_save_svg, svg_basename_new)
+    svg_basename_new = os.path.splitext(svg_basename)[0] + '.' + target_format
+    svg_full_path = os.path.join(folder, svg_basename_new)
 
-    plt.savefig(svg_full_path, format='svg', dpi=1200)
+    plt.savefig(svg_full_path, format=target_format, dpi=1200)
     print('Success! ' + file_name + ' has been visualized to ' + svg_full_path)
 
 
@@ -36,4 +36,6 @@ if __name__ == "__main__":
         'csv/ckpt-61168.csv',
     ]
     for name in file_names:
-        visu_confusion_matrix(file_name=name, folder_to_save_svg='figures')
+        visu_confusion_matrix(file_name=name,
+                              folder='figures',
+                              target_format='eps')
